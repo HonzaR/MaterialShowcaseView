@@ -12,6 +12,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -386,6 +387,24 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void setDismissBackground(Drawable selector) {
+        if (mDismissButton != null) {
+            mDismissButton.setBackground(selector);
+
+            updateDismissButton();
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private Drawable getDismissBackground() {
+        Drawable background = null;
+        if (mDismissButton != null) {
+            background = mDismissButton.getBackground();
+        }
+        return background;
+    }
+
     private void setContentStyle(Typeface dismissStyle) {
         if (mContentTextView != null) {
             mContentTextView.setTypeface(dismissStyle);
@@ -483,6 +502,7 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         setContentStyle(config.getContentTextStyle());
         setDismissTextColor(config.getDismissTextColor());
         setDismissStyle(config.getDismissTextStyle());
+        setDismissBackground(config.getDismissBackground());
 
         setMaskColour(config.getMaskColor());
         setShape(config.getShape());
