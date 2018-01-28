@@ -18,6 +18,7 @@ public class ShowcaseConfig {
     private long mDelay = DEFAULT_DELAY;
     private int mMaskColour;
     private Typeface mDismissTextStyle = Typeface.DEFAULT_BOLD;
+    private Typeface mContentTextStyle = Typeface.DEFAULT;
 
     private int mContentTextColor;
     private int mDismissTextColor;
@@ -68,8 +69,16 @@ public class ShowcaseConfig {
         return mDismissTextStyle;
     }
 
+    public Typeface getContentTextStyle() {
+        return mContentTextStyle;
+    }
+
     public void setDismissTextStyle(Typeface dismissTextStyle) {
         this.mDismissTextStyle = dismissTextStyle;
+    }
+
+    public void setContentTextStyle(Typeface contentTextStyle) {
+        this.mContentTextStyle = contentTextStyle;
     }
 
     public long getFadeDuration() {

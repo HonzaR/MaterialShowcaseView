@@ -386,6 +386,12 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         }
     }
 
+    private void setContentStyle(Typeface dismissStyle) {
+        if (mContentTextView != null) {
+            mContentTextView.setTypeface(dismissStyle);
+        }
+    }
+
     private void setTitleTextColor(int textColour) {
         if (mTitleTextView != null) {
             mTitleTextView.setTextColor(textColour);
@@ -474,6 +480,7 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         setDelay(config.getDelay());
         setFadeDuration(config.getFadeDuration());
         setContentTextColor(config.getContentTextColor());
+        setContentStyle(config.getContentTextStyle());
         setDismissTextColor(config.getDismissTextColor());
         setDismissStyle(config.getDismissTextStyle());
 
