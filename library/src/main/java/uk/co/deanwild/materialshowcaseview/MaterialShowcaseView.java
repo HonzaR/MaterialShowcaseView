@@ -473,7 +473,7 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         setContentTextColor(config.getContentTextColor());
         setDismissTextColor(config.getDismissTextColor());
         setDismissStyle(config.getDismissTextStyle());
-
+        setDismissOnTouch(config.getDismissOnTouch());
         setMaskColour(config.getMaskColor());
         setShape(config.getShape());
         setShapePadding(config.getShapePadding());

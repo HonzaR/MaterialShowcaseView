@@ -60,6 +60,7 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
 
         ShowcaseConfig config = new ShowcaseConfig();
         config.setDelay(500); // half second between each showcase view
+        config.setDismissOnTouch(true);
 
         MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, SHOWCASE_ID);
 
@@ -72,12 +73,13 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
 
         sequence.setConfig(config);
 
-        sequence.addSequenceItem(mButtonOne, "This is button one", "GOT IT");
+        sequence.addSequenceItem(mButtonOne, "This is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button one ", "GOT IT");
 
         sequence.addSequenceItem(
                 new MaterialShowcaseView.Builder(this)
                         .setTarget(mButtonTwo)
                         .setDismissText("GOT IT")
+                        .setDismissOnTouch(true)
                         .setContentText("This is button two")
                         .withRectangleShape(true)
                         .build()
@@ -87,6 +89,7 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
                 new MaterialShowcaseView.Builder(this)
                         .setTarget(mButtonThree)
                         .setDismissText("GOT IT")
+                        .setDismissOnTouch(true)
                         .setContentText("This is button three")
                         .withRectangleShape()
                         .build()

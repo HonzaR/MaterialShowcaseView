@@ -25,6 +25,7 @@ public class ShowcaseConfig {
     private Shape mShape = DEFAULT_SHAPE;
     private int mShapePadding = DEFAULT_SHAPE_PADDING;
     private boolean renderOverNav = false;
+    private boolean dismissOnTouch = false;
 
     public ShowcaseConfig() {
         mMaskColour = Color.parseColor(ShowcaseConfig.DEFAULT_MASK_COLOUR);
@@ -102,5 +103,13 @@ public class ShowcaseConfig {
 
     public void setRenderOverNavigationBar(boolean renderOverNav) {
         this.renderOverNav = renderOverNav;
+    }
+
+    public boolean getDismissOnTouch() {
+        return dismissOnTouch;
+    }
+
+    public void setDismissOnTouch(boolean dismissOnTouch) {
+        this.dismissOnTouch = dismissOnTouch;
     }
 }
