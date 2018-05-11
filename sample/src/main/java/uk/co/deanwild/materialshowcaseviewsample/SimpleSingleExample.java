@@ -1,6 +1,7 @@
 package uk.co.deanwild.materialshowcaseviewsample;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -49,6 +50,7 @@ public class SimpleSingleExample extends AppCompatActivity implements View.OnCli
         new MaterialShowcaseView.Builder(this)
                 .setTarget(mButtonShow)
                 .setTitleText("Hello")
+                .setTitleTextColor(ContextCompat.getColor(SimpleSingleExample.this, R.color.blue))
                 .setDismissText("GOT IT")
                 .setContentText("This is some amazing feature you should know about")
                 .setDelay(withDelay) // optional but starting animations immediately in onCreate can make them choppy

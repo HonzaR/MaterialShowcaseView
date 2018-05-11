@@ -21,6 +21,7 @@ public class ShowcaseConfig {
     private Typeface mDismissTextStyle = Typeface.DEFAULT_BOLD;
     private Typeface mContentTextStyle = Typeface.DEFAULT;
 
+    private int mTitleTextColor;
     private int mContentTextColor;
     private int mDismissTextColor;
     private long mFadeDuration = DEFAULT_FADE_TIME;
@@ -32,6 +33,7 @@ public class ShowcaseConfig {
 
     public ShowcaseConfig() {
         mMaskColour = Color.parseColor(ShowcaseConfig.DEFAULT_MASK_COLOUR);
+        mTitleTextColor = Color.parseColor("#ffffff");
         mContentTextColor = Color.parseColor("#ffffff");
         mDismissTextColor = Color.parseColor("#ffffff");
     }
@@ -58,6 +60,14 @@ public class ShowcaseConfig {
 
     public void setContentTextColor(int mContentTextColor) {
         this.mContentTextColor = mContentTextColor;
+    }
+
+    public int getTitleTextColor() {
+        return mTitleTextColor;
+    }
+
+    public void setTitleTextColor(int mTitleTextColor) {
+        this.mTitleTextColor = mTitleTextColor;
     }
 
     public int getDismissTextColor() {

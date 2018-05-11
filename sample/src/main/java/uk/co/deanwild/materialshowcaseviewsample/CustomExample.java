@@ -49,6 +49,7 @@ public class CustomExample extends AppCompatActivity implements View.OnClickList
                     .setDismissText("GOT IT")
                     .setContentText("Example of how to setup a MaterialShowcaseView for menu items in action bar.")
                     .setContentTextColor(getResources().getColor(R.color.green))
+                    .setTitleTextColor(getResources().getColor(R.color.green))
                     .setMaskColour(getResources().getColor(R.color.purple))
                     .show();
         }
