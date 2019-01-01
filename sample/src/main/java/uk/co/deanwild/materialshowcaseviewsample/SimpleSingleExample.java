@@ -52,10 +52,11 @@ public class SimpleSingleExample extends AppCompatActivity implements View.OnCli
                 .setTitleText("Hello")
                 .setTitleTextColor(ContextCompat.getColor(SimpleSingleExample.this, R.color.blue))
                 .setDismissText("GOT IT")
+                .showDismissButton(false)
                 .setContentText("This is some amazing feature you should know about")
                 .setDelay(withDelay) // optional but starting animations immediately in onCreate can make them choppy
                 .singleUse(SHOWCASE_ID) // provide a unique ID used to ensure it is only shown once
-//                .useFadeAnimation() // remove comment if you want to use fade animations for Lollipop & up
+                .useFadeAnimation() // remove comment if you want to use fade animations for Lollipop & up
                 .show();
     }
 

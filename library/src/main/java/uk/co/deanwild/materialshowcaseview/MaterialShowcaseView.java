@@ -71,6 +71,7 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
     private IAnimationFactory mAnimationFactory;
     private boolean mShouldAnimate = true;
     private boolean mUseFadeAnimation = false;
+    private boolean mShowDismissButton = true;
     private long mFadeDurationInMillis = ShowcaseConfig.DEFAULT_FADE_TIME;
     private Handler mHandler;
     private long mDelayInMillis = ShowcaseConfig.DEFAULT_DELAY;
@@ -464,6 +465,10 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         mUseFadeAnimation = useFadeAnimation;
     }
 
+    private void showDismissButton(boolean enable) {
+        mShowDismissButton = enable;
+    }
+
     public void addShowcaseListener(IShowcaseListener showcaseListener) {
 
         if(mListeners != null)
@@ -511,6 +516,12 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
     }
 
     private void updateDismissButton() {
+
+        if (!mShowDismissButton) {
+            mDismissButton.setVisibility(GONE);
+            return;
+        }
+
         // hide or show button
         if (mDismissButtonText != null) {
             if (TextUtils.isEmpty(mDismissButtonText.getText())) {
@@ -720,6 +731,12 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
             return this;
         }
 
+
+        public Builder showDismissButton(boolean enable) {
+            showcaseView.showDismissButton(enable);
+            return this;
+        }
+
         public MaterialShowcaseView build() {
             if (showcaseView.mShape == null) {
                 switch (shapeType) {
@@ -750,6 +767,11 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
                 }
             }
 
+            if (showcaseView.mShowDismissButton)
+                showcaseView.mDismissButton.setVisibility(GONE);
+            else
+                showcaseView.mDismissButton.setVisibility(VISIBLE);
+
             return showcaseView;
         }
 
@@ -757,7 +779,6 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
             build().show(activity);
             return showcaseView;
         }
-
     }
 
     private void singleUse(String showcaseID) {
