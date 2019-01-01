@@ -437,6 +437,10 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         mDismissOnTouch = dismissOnTouch;
     }
 
+    private void setShowDismissButton(boolean showDismissButton) {
+        mShowDismissButton = showDismissButton;
+    }
+
     private void setShouldRender(boolean shouldRender) {
         mShouldRender = shouldRender;
     }
@@ -508,6 +512,7 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         setDismissTextColor(config.getDismissTextColor());
         setDismissStyle(config.getDismissTextStyle());
         setDismissOnTouch(config.getDismissOnTouch());
+        setShowDismissButton(config.getShowDismissButton());
         setDismissBackground(config.getDismissBackground());
         setMaskColour(config.getMaskColor());
         setShape(config.getShape());

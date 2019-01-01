@@ -29,6 +29,7 @@ public class ShowcaseConfig {
     private int mShapePadding = DEFAULT_SHAPE_PADDING;
     private boolean renderOverNav = false;
     private boolean dismissOnTouch = false;
+    private boolean showDismissButton = true;
     private Drawable mDismissBackground;
 
     public ShowcaseConfig() {
@@ -139,5 +140,13 @@ public class ShowcaseConfig {
 
     public void setDismissOnTouch(boolean dismissOnTouch) {
         this.dismissOnTouch = dismissOnTouch;
+    }
+
+    public void setShowDismissButton(boolean enable) {
+        this.showDismissButton = enable;
+    }
+
+    public boolean getShowDismissButton() {
+        return showDismissButton;
     }
 }
