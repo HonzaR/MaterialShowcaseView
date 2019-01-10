@@ -120,7 +120,7 @@ public class MaterialShowcaseSequence implements IDetachedListener {
 
     public void stop()
     {
-        if (mShowcaseQueue.size() > 0 && !mActivity.isFinishing() && isShowing()) {
+        if (mShowcaseQueue != null && !mActivity.isFinishing() && isShowing()) {
 
             if (mCurrentSequenceItem != null)
                 mCurrentSequenceItem.hide();
