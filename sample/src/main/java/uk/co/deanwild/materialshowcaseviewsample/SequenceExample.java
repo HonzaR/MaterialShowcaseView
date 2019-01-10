@@ -1,9 +1,11 @@
 package uk.co.deanwild.materialshowcaseviewsample;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
@@ -17,26 +19,42 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
     private Button mButtonTwo;
     private Button mButtonThree;
 
+    private TextView mTextShowing;
+
     private Button mButtonReset;
 
-    private static final String SHOWCASE_ID = "sequence example";
+    private MaterialShowcaseSequence sequence;
+
+    private static final String SHOWCASE_ID = "sequence_example_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sequence_example);
-        mButtonOne = (Button) findViewById(R.id.btn_one);
+        mButtonOne = findViewById(R.id.btn_one);
         mButtonOne.setOnClickListener(this);
 
-        mButtonTwo = (Button) findViewById(R.id.btn_two);
+        mButtonTwo = findViewById(R.id.btn_two);
         mButtonTwo.setOnClickListener(this);
 
-        mButtonThree = (Button) findViewById(R.id.btn_three);
+        mButtonThree = findViewById(R.id.btn_three);
         mButtonThree.setOnClickListener(this);
 
-        mButtonReset = (Button) findViewById(R.id.btn_reset);
+        mButtonReset = findViewById(R.id.btn_reset);
         mButtonReset.setOnClickListener(this);
+
+        mTextShowing = findViewById(R.id.tv_is_showing);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String text = sequence.isShowing() ? "Showing " + sequence.getSequenceID() + " true" : "Showing " + sequence.getSequenceID() + " false";
+                mTextShowing.setText(text);
+                handler.postDelayed(this, 1000);
+            }
+        }, 1000);
 
         presentShowcaseSequence(); // one second delay
     }
@@ -63,7 +81,7 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
         config.setDismissOnTouch(true);
         config.setShowDismissButton(false);
 
-        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, SHOWCASE_ID);
+        sequence = new MaterialShowcaseSequence(this, SHOWCASE_ID);
 
         sequence.setOnItemShownListener(new MaterialShowcaseSequence.OnSequenceItemShownListener() {
             @Override
@@ -100,5 +118,4 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
         sequence.start();
 
     }
-
 }
