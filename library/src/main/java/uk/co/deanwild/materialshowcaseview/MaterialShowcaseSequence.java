@@ -11,6 +11,7 @@ public class MaterialShowcaseSequence implements IDetachedListener {
 
     PrefsManager mPrefsManager;
     Queue<MaterialShowcaseView> mShowcaseQueue;
+    private MaterialShowcaseView mCurrentSequenceItem;
     private boolean mSingleUse = false;
     Activity mActivity;
     private ShowcaseConfig mConfig;
@@ -117,6 +118,23 @@ public class MaterialShowcaseSequence implements IDetachedListener {
         }
     }
 
+    public void stop()
+    {
+        if (mShowcaseQueue.size() > 0 && !mActivity.isFinishing() && isShowing()) {
+
+            if (mCurrentSequenceItem != null)
+                mCurrentSequenceItem.hide();
+
+            mShowcaseQueue.clear();
+
+            if (mSingleUse) {
+                mPrefsManager.setFired();
+            }
+
+            mIsShowing = false;
+        }
+    }
+
     public String getSequenceID() {
         return mSequenceID;
     }
@@ -124,11 +142,11 @@ public class MaterialShowcaseSequence implements IDetachedListener {
     private void showNextItem() {
 
         if (mShowcaseQueue.size() > 0 && !mActivity.isFinishing()) {
-            MaterialShowcaseView sequenceItem = mShowcaseQueue.remove();
-            sequenceItem.setDetachedListener(this);
-            sequenceItem.show(mActivity);
+            mCurrentSequenceItem = mShowcaseQueue.remove();
+            mCurrentSequenceItem.setDetachedListener(this);
+            mCurrentSequenceItem.show(mActivity);
             if (mOnItemShownListener != null) {
-                mOnItemShownListener.onShow(sequenceItem, mSequencePosition);
+                mOnItemShownListener.onShow(mCurrentSequenceItem, mSequencePosition);
             }
         } else {
             /**

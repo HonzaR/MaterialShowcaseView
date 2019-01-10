@@ -56,6 +56,14 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
             }
         }, 1000);
 
+        final Handler handler2 = new Handler();
+        handler2.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sequence.stop();
+            }
+        }, 10000);
+
         presentShowcaseSequence(); // one second delay
     }
 
