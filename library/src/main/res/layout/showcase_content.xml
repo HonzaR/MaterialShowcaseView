@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:paddingLeft="5dp"
-        android:textSize="30dp"
+        android:textSize="@dimen/help_intro_title_text_size"
         android:layout_marginBottom="15dp" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:paddingLeft="5dp"
-        android:textSize="20dp" />
+        android:textSize="@dimen/help_intro_content_text_size" />
 
     <LinearLayout
         style="?android:attr/buttonStyle"

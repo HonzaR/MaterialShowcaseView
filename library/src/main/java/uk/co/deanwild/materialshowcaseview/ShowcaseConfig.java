@@ -1,5 +1,6 @@
 package uk.co.deanwild.materialshowcaseview;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -31,6 +32,8 @@ public class ShowcaseConfig {
     private boolean dismissOnTouch = false;
     private boolean showDismissButton = true;
     private Drawable mDismissBackground;
+    private float mTitleTextSize;
+    private float mContentTextSize;
 
     public ShowcaseConfig() {
         mMaskColour = Color.parseColor(ShowcaseConfig.DEFAULT_MASK_COLOUR);
@@ -71,6 +74,14 @@ public class ShowcaseConfig {
         this.mTitleTextColor = mTitleTextColor;
     }
 
+    public float getTitleTextSize() {
+        return mTitleTextSize;
+    }
+
+    public void setTitleTextSize(float size) {
+        this.mTitleTextSize = size;
+    }
+
     public int getDismissTextColor() {
         return mDismissTextColor;
     }
@@ -100,6 +111,14 @@ public class ShowcaseConfig {
 
     public void setContentTextStyle(Typeface contentTextStyle) {
         this.mContentTextStyle = contentTextStyle;
+    }
+
+    public void setContentTextSize(float size) {
+        this.mContentTextSize = size;
+    }
+
+    public float getContentTextSize() {
+        return mContentTextSize;
     }
 
     public long getFadeDuration() {

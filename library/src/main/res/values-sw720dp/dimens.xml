@@ -1,0 +1,6 @@
+<resources>
+
+    <dimen name="help_intro_title_text_size">28sp</dimen>
+    <dimen name="help_intro_content_text_size">18sp</dimen>
+
+</resources>

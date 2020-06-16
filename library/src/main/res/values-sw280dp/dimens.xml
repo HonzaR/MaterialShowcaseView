@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="help_intro_title_text_size">22sp</dimen>
+    <dimen name="help_intro_content_text_size">16sp</dimen>
+
+</resources>
