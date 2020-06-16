@@ -50,7 +50,6 @@ public class SimpleSingleExample extends AppCompatActivity implements View.OnCli
         new MaterialShowcaseView.Builder(this)
                 .setTarget(mButtonShow)
                 .setTitleText("Hello")
-                .setTitleTextSize(60f)
                 .setTitleTextColor(ContextCompat.getColor(SimpleSingleExample.this, R.color.blue))
                 .setDismissText("GOT IT")
                 .showDismissButton(false)

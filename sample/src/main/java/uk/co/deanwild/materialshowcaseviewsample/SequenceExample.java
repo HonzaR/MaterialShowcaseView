@@ -88,7 +88,8 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
         config.setDelay(500); // half second between each showcase view
         config.setDismissOnTouch(true);
         config.setShowDismissButton(false);
-        config.setContentTextSize(40f);
+        config.setTitleTextSize(getResources().getDimension(R.dimen.help_intro_title_text_size));
+        config.setContentTextSize(getResources().getDimension(R.dimen.help_intro_content_text_size));
 
         sequence = new MaterialShowcaseSequence(this, SHOWCASE_ID);
 
@@ -101,13 +102,14 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
 
         sequence.setConfig(config);
 
-        sequence.addSequenceItem(mButtonOne, "This is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button one ", "GOT IT");
+        sequence.addSequenceItem(mButtonOne, "Gagaga", "This is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button one ", "GOT IT");
 
         sequence.addSequenceItem(
                 new MaterialShowcaseView.Builder(this)
                         .setTarget(mButtonTwo)
                         .setDismissText("GOT IT")
                         .setDismissOnTouch(true)
+                        .setTitleText("This")
                         .setContentText("This is button two")
                         .withRectangleShape(true)
                         .showDismissButton(false)
@@ -119,6 +121,7 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
                         .setTarget(mButtonThree)
                         .setDismissText("GOT IT")
                         .setDismissOnTouch(true)
+                        .setTitleText("three")
                         .setContentText("This is button three")
                         .withRectangleShape()
                         .build()

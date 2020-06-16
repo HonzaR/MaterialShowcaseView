@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -431,13 +432,13 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
 
     private void setTitleTextSize(float size) {
         if (mTitleTextView != null) {
-            mTitleTextView.setTextSize(size);
+            mTitleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
         }
     }
 
     private void setContentTextSize(float size) {
         if (mContentTextView != null) {
-            mContentTextView.setTextSize(size);
+            mContentTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
         }
     }
 
