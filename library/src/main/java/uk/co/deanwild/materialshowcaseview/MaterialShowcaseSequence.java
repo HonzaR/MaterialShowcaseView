@@ -189,6 +189,11 @@ public class MaterialShowcaseSequence implements IDetachedListener {
 
     public void setConfig(ShowcaseConfig config) {
         this.mConfig = config;
+
+        if (mShowcaseQueue != null) {
+            for (MaterialShowcaseView view : mShowcaseQueue)
+                view.setConfig(config);
+        }
     }
 
     public interface OnSequenceItemShownListener {

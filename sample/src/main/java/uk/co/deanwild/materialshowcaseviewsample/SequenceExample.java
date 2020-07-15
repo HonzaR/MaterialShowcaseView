@@ -82,14 +82,21 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void presentShowcaseSequence() {
-
+    private ShowcaseConfig createConfig(int padding)
+    {
         ShowcaseConfig config = new ShowcaseConfig();
         config.setDelay(500); // half second between each showcase view
         config.setDismissOnTouch(true);
         config.setShowDismissButton(false);
         config.setTitleTextSize(getResources().getDimension(R.dimen.help_intro_title_text_size));
         config.setContentTextSize(getResources().getDimension(R.dimen.help_intro_content_text_size));
+        config.setShapePadding(padding);
+        return config;
+    }
+
+    private void presentShowcaseSequence() {
+
+        ShowcaseConfig config = createConfig(10);
 
         sequence = new MaterialShowcaseSequence(this, SHOWCASE_ID);
 
@@ -99,6 +106,16 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
                 Toast.makeText(itemView.getContext(), "Item #" + position, Toast.LENGTH_SHORT).show();
             }
         });
+
+        sequence.setOnItemDismissedListener(new MaterialShowcaseSequence.OnSequenceItemDismissedListener() {
+                                                @Override
+                                                public void onDismiss(MaterialShowcaseView itemView, int position) {
+                                                    if (position == 0)
+                                                        sequence.setConfig(createConfig(156));
+                                                    else if (position == 1)
+                                                        sequence.setConfig(createConfig(10));
+                                                }
+                                            });
 
         sequence.setConfig(config);
 
@@ -111,7 +128,7 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
                         .setDismissOnTouch(true)
                         .setTitleText("This")
                         .setContentText("This is button two")
-                        .withRectangleShape(true)
+                        .withCircleShape()
                         .showDismissButton(false)
                         .build()
         );
@@ -123,7 +140,7 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
                         .setDismissOnTouch(true)
                         .setTitleText("three")
                         .setContentText("This is button three")
-                        .withRectangleShape()
+                        .withCircleShape()
                         .build()
         );
 
