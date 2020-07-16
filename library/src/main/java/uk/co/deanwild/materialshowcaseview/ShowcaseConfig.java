@@ -19,8 +19,7 @@ public class ShowcaseConfig {
 
     private long mDelay = DEFAULT_DELAY;
     private int mMaskColour;
-    private Typeface mDismissTextStyle = Typeface.DEFAULT_BOLD;
-    private Typeface mContentTextStyle = Typeface.DEFAULT;
+    private Typeface mTextsStyle = Typeface.DEFAULT;
 
     private int mTitleTextColor;
     private int mContentTextColor;
@@ -34,6 +33,8 @@ public class ShowcaseConfig {
     private Drawable mDismissBackground;
     private float mTitleTextSize;
     private float mContentTextSize;
+    private boolean mCloseEnabled;
+    private boolean mNextEnabled;
 
     public ShowcaseConfig() {
         mMaskColour = Color.parseColor(ShowcaseConfig.DEFAULT_MASK_COLOUR);
@@ -90,16 +91,12 @@ public class ShowcaseConfig {
         this.mDismissTextColor = dismissTextColor;
     }
 
-    public Typeface getDismissTextStyle() {
-        return mDismissTextStyle;
+    public Typeface getTextsStyle() {
+        return mTextsStyle;
     }
 
-    public Typeface getContentTextStyle() {
-        return mContentTextStyle;
-    }
-
-    public void setDismissTextStyle(Typeface dismissTextStyle) {
-        this.mDismissTextStyle = dismissTextStyle;
+    public void setTextsStyle(Typeface textsStyle) {
+        this.mTextsStyle = textsStyle;
     }
 
     public void setDismissBackground(Drawable background) {
@@ -107,10 +104,6 @@ public class ShowcaseConfig {
     }
     public Drawable getDismissBackground() {
         return this.mDismissBackground;
-    }
-
-    public void setContentTextStyle(Typeface contentTextStyle) {
-        this.mContentTextStyle = contentTextStyle;
     }
 
     public void setContentTextSize(float size) {
@@ -167,5 +160,21 @@ public class ShowcaseConfig {
 
     public boolean getShowDismissButton() {
         return showDismissButton;
+    }
+
+    public boolean getCloseEnabled() {
+        return mCloseEnabled;
+    }
+
+    public void setCloseEnabled(boolean closeEnabled) {
+        this.mCloseEnabled = closeEnabled;
+    }
+
+    public boolean getNextEnabled() {
+        return mNextEnabled;
+    }
+
+    public void setNextEnabled(boolean nextEnabled) {
+        this.mNextEnabled = nextEnabled;
     }
 }

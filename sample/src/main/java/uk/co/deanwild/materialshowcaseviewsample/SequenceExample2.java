@@ -14,7 +14,7 @@ import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 
-public class SequenceExample extends AppCompatActivity implements View.OnClickListener {
+public class SequenceExample2 extends AppCompatActivity implements View.OnClickListener {
 
     private Button mButtonOne;
     private Button mButtonTwo;
@@ -26,13 +26,16 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
 
     private MaterialShowcaseSequence sequence;
 
-    private static final String SHOWCASE_ID = "sequence_example_id";
+    private static final String SHOWCASE_ID = "sequence_example_id_2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sequence_example);
+        setContentView(R.layout.activity_sequence_example_2);
+
+        MaterialShowcaseView.resetSingleUse(this, SHOWCASE_ID);
+
         mButtonOne = findViewById(R.id.btn_one);
         mButtonOne.setOnClickListener(this);
 
@@ -42,28 +45,7 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
         mButtonThree = findViewById(R.id.btn_three);
         mButtonThree.setOnClickListener(this);
 
-        mButtonReset = findViewById(R.id.btn_reset);
-        mButtonReset.setOnClickListener(this);
-
         mTextShowing = findViewById(R.id.tv_is_showing);
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                String text = sequence.isShowing() ? "Showing " + sequence.getSequenceID() + " true" : "Showing " + sequence.getSequenceID() + " false";
-                mTextShowing.setText(text);
-                handler.postDelayed(this, 1000);
-            }
-        }, 1000);
-
-        final Handler handler2 = new Handler();
-        handler2.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                sequence.stop();
-            }
-        }, 10000);
 
         presentShowcaseSequence(); // one second delay
     }
@@ -75,10 +57,6 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
 
             presentShowcaseSequence();
 
-        } else if (v.getId() == R.id.btn_reset) {
-
-            MaterialShowcaseView.resetSingleUse(this, SHOWCASE_ID);
-            Toast.makeText(this, "Showcase reset", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -106,7 +84,7 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
         sequence.setOnItemShownListener(new MaterialShowcaseSequence.OnSequenceItemShownListener() {
             @Override
             public void onShow(MaterialShowcaseView itemView, int position) {
-                Toast.makeText(itemView.getContext(), "Item #" + position, Toast.LENGTH_SHORT).show();
+                Log.i("Sequence item: " + position, "Show view: " + itemView.toString());
             }
         });
 
@@ -146,7 +124,7 @@ public class SequenceExample extends AppCompatActivity implements View.OnClickLi
                         .setNextText("next here...")
                         .setDismissOnTouch(true)
                         .setTitleText("This")
-                        .setContentText("This is button two")
+                        .setContentText("This is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button one This is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button oneoneThis is button one ")
                         .withCircleShape()
                         .showDismissButton(false)
                         .build()

@@ -3,5 +3,6 @@
 
     <dimen name="help_intro_title_text_size">22sp</dimen>
     <dimen name="help_intro_content_text_size">16sp</dimen>
+    <dimen name="action_buttons_height">56dp</dimen>
 
 </resources>

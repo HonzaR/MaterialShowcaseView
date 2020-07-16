@@ -21,6 +21,8 @@ public class MaterialShowcaseSequence implements IDetachedListener {
 
     private OnSequenceItemShownListener mOnItemShownListener = null;
     private OnSequenceItemDismissedListener mOnItemDismissedListener = null;
+    private OnSequenceItemClosedListener mOnItemClosedListener = null;
+    private OnSequenceItemNextListener mOnItemNextListener = null;
 
     public MaterialShowcaseSequence(Activity activity) {
         mActivity = activity;
@@ -72,6 +74,14 @@ public class MaterialShowcaseSequence implements IDetachedListener {
 
     public void setOnItemDismissedListener(OnSequenceItemDismissedListener listener) {
         this.mOnItemDismissedListener = listener;
+    }
+
+    public void setOnItemClosedListener(OnSequenceItemClosedListener listener) {
+        this.mOnItemClosedListener = listener;
+    }
+
+    public void setOnItemNextListener(OnSequenceItemNextListener listener) {
+        this.mOnItemNextListener = listener;
     }
 
     public boolean hasFired() {
@@ -148,6 +158,25 @@ public class MaterialShowcaseSequence implements IDetachedListener {
             if (mOnItemShownListener != null) {
                 mOnItemShownListener.onShow(mCurrentSequenceItem, mSequencePosition);
             }
+            if (mOnItemClosedListener != null) {
+                mCurrentSequenceItem.setCloseListener(new ICloseListener() {
+                    @Override
+                    public void onShowcaseClosed(MaterialShowcaseView showcaseView) {
+                        mOnItemClosedListener.onClosed(mCurrentSequenceItem, mSequencePosition);
+                        stop();
+                    }
+                });
+            }
+            if (mOnItemNextListener != null) {
+                mCurrentSequenceItem.setNextListener(new INextListener() {
+                    @Override
+                    public void onShowcaseClosed(MaterialShowcaseView showcaseView) {
+                        mOnItemNextListener.onNext(mCurrentSequenceItem, mSequencePosition);
+//                        showcaseView.hide();
+//                        showNextItem();
+                    }
+                });
+            }
         } else {
             /**
              * We've reached the end of the sequence, save the fired state
@@ -202,6 +231,14 @@ public class MaterialShowcaseSequence implements IDetachedListener {
 
     public interface OnSequenceItemDismissedListener {
         void onDismiss(MaterialShowcaseView itemView, int position);
+    }
+
+    public interface OnSequenceItemClosedListener {
+        void onClosed(MaterialShowcaseView itemView, int position);
+    }
+
+    public interface OnSequenceItemNextListener {
+        void onNext(MaterialShowcaseView itemView, int position);
     }
 
 }

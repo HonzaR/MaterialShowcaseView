@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button.setOnClickListener(this);
         button = (Button) findViewById(R.id.btn_sequence_example);
         button.setOnClickListener(this);
+        button = (Button) findViewById(R.id.btn_sequence_example_2);
+        button.setOnClickListener(this);
         button = (Button) findViewById(R.id.btn_reset_all);
         button.setOnClickListener(this);
     }
@@ -42,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btn_sequence_example:
                 intent = new Intent(this, SequenceExample.class);
+                break;
+
+            case R.id.btn_sequence_example_2:
+                intent = new Intent(this, SequenceExample2.class);
                 break;
 
             case R.id.btn_reset_all:

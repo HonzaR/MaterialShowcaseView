@@ -62,6 +62,12 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
     private TextView mContentTextView;
     private TextView mDismissButtonText;
     private LinearLayout mDismissButton;
+    private View mCloseBox;
+    private TextView mCloseTextView;
+    private View mNextBox;
+    private TextView mNextTextView;
+    private boolean mCloseEnabled;
+    private boolean mNextEnabled;
     private int mGravity;
     private int mContentBottomMargin;
     private int mContentTopMargin;
@@ -82,6 +88,8 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
     List<IShowcaseListener> mListeners; // external listeners who want to observe when we show and dismiss
     private UpdateOnGlobalLayout mLayoutListener;
     private IDetachedListener mDetachedListener;
+    private ICloseListener mCloseListener;
+    private INextListener mNextListener;
     private boolean mTargetTouchable = false;
     private boolean mDismissOnTargetTouch = true;
 
@@ -125,11 +133,21 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
 
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.showcase_content, this, true);
         mContentBox = contentView.findViewById(R.id.content_box);
-        mTitleTextView = (TextView) contentView.findViewById(R.id.tv_title);
-        mContentTextView = (TextView) contentView.findViewById(R.id.tv_content);
-        mDismissButton = (LinearLayout) contentView.findViewById(R.id.ll_btn_dismiss);
-        mDismissButtonText = (TextView) contentView.findViewById(R.id.tv_dismiss);
+        mTitleTextView = contentView.findViewById(R.id.tv_title);
+        mContentTextView = contentView.findViewById(R.id.tv_content);
+        mDismissButton = contentView.findViewById(R.id.ll_btn_dismiss);
+        mDismissButtonText = contentView.findViewById(R.id.tv_dismiss);
         mDismissButton.setOnClickListener(this);
+
+        View closeView = LayoutInflater.from(getContext()).inflate(R.layout.showcase_close, this, true);
+        mCloseBox = closeView.findViewById(R.id.close_box);
+        mCloseTextView = closeView.findViewById(R.id.tv_close_text);
+        mCloseBox.setOnClickListener(this);
+
+        View nextView = LayoutInflater.from(getContext()).inflate(R.layout.showcase_next, this, true);
+        mNextBox = nextView.findViewById(R.id.next_box);
+        mNextTextView = closeView.findViewById(R.id.tv_next_text);
+        mNextBox.setOnClickListener(this);
     }
 
 
@@ -250,13 +268,25 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
     }
 
     /**
-     * Dismiss button clicked
+     * Buttons clicked
      *
      * @param v
      */
     @Override
     public void onClick(View v) {
-        hide();
+
+        if (v == mDismissButton) {
+            hide();
+
+        } else if (v == mCloseBox) {
+            if (mCloseListener != null)
+                mCloseListener.onShowcaseClosed(this);
+
+        } else if (v == mNextBox) {
+            hide();
+            if (mNextListener != null)
+                mNextListener.onShowcaseClosed(this);
+        }
     }
 
     /**
@@ -269,8 +299,14 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
     public void setTarget(Target target) {
         mTarget = target;
 
-        // update dismiss button state
+         // update dismiss button state
         updateDismissButton();
+
+        // update close button
+        setupCloseButton();
+
+        // update next button
+        setupNextButton();
 
         if (mTarget != null) {
 
@@ -315,6 +351,42 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         }
 
         applyLayoutParams();
+    }
+
+    private void setupCloseButton()
+    {
+        if (mCloseBox == null)
+            return;
+
+        if (mCloseEnabled) {
+            mCloseBox.setVisibility(VISIBLE);
+            mContentBox.setPadding (
+                mContentBox.getPaddingLeft(),
+                mContentBox.getPaddingTop(),
+                mContentBox.getPaddingRight(),
+                (int) getResources().getDimension(R.dimen.action_buttons_height)
+            );
+        } else {
+            mCloseBox.setVisibility(GONE);
+        }
+    }
+
+    private void setupNextButton()
+    {
+        if (mNextBox == null)
+            return;
+
+        if (mNextEnabled) {
+            mNextBox.setVisibility(VISIBLE);
+            mContentBox.setPadding (
+                    mContentBox.getPaddingLeft(),
+                    mContentBox.getPaddingTop(),
+                    mContentBox.getPaddingRight(),
+                    (int) getResources().getDimension(R.dimen.action_buttons_height)
+            );
+        } else {
+            mNextBox.setVisibility(GONE);
+        }
     }
 
     private void applyLayoutParams() {
@@ -380,11 +452,15 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         }
     }
 
-    private void setDismissStyle(Typeface dismissStyle) {
-        if (mDismissButtonText != null) {
-            mDismissButtonText.setTypeface(dismissStyle);
+    private void setCloseText(CharSequence closeText) {
+        if (mCloseTextView != null) {
+            mCloseTextView.setText(closeText);
+        }
+    }
 
-            updateDismissButton();
+    private void setNextText(CharSequence nextText) {
+        if (mNextTextView != null) {
+            mNextTextView.setText(nextText);
         }
     }
 
@@ -406,10 +482,12 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         return background;
     }
 
-    private void setContentStyle(Typeface dismissStyle) {
-        if (mContentTextView != null) {
-            mContentTextView.setTypeface(dismissStyle);
-        }
+    private void setTextsStyle(Typeface style) {
+        if (mTitleTextView != null) mTitleTextView.setTypeface(style);
+        if (mContentTextView != null) mContentTextView.setTypeface(style);
+        if (mDismissButtonText != null) mDismissButtonText.setTypeface(style);
+        if (mCloseTextView != null) mCloseTextView.setTypeface(style);
+        if (mNextTextView != null) mNextTextView.setTypeface(style);
     }
 
     private void setTitleTextColor(int textColour) {
@@ -503,6 +581,14 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         mDetachedListener = detachedListener;
     }
 
+    void setCloseListener(ICloseListener closeListener) {
+        mCloseListener = closeListener;
+    }
+
+    void setNextListener(INextListener nextListener) {
+        mNextListener = nextListener;
+    }
+
     public void setShape(Shape mShape) {
         this.mShape = mShape;
     }
@@ -523,16 +609,25 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
         setTitleTextSize(config.getTitleTextSize());
         setContentTextColor(config.getContentTextColor());
         setContentTextSize(config.getContentTextSize());
-        setContentStyle(config.getContentTextStyle());
+        setTextsStyle(config.getTextsStyle());
         setDismissTextColor(config.getDismissTextColor());
-        setDismissStyle(config.getDismissTextStyle());
         setDismissOnTouch(config.getDismissOnTouch());
         setShowDismissButton(config.getShowDismissButton());
         setDismissBackground(config.getDismissBackground());
         setMaskColour(config.getMaskColor());
         setShape(config.getShape());
         setShapePadding(config.getShapePadding());
+        setCloseButtonEnabled(config.getCloseEnabled());
+        setNextButtonEnabled(config.getNextEnabled());
         setRenderOverNavigationBar(config.getRenderOverNavigationBar());
+    }
+
+    public void setCloseButtonEnabled (boolean enable) {
+        mCloseEnabled = enable;
+    }
+
+    public void setNextButtonEnabled (boolean enable) {
+        mNextEnabled = enable;
     }
 
     private void updateDismissButton() {
@@ -610,8 +705,13 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
             return this;
         }
 
-        public Builder setDismissStyle(Typeface dismissStyle) {
-            showcaseView.setDismissStyle(dismissStyle);
+        public Builder setCloseText(CharSequence closeText) {
+            showcaseView.setCloseText(closeText);
+            return this;
+        }
+
+        public Builder setNextText(CharSequence nextText) {
+            showcaseView.setNextText(nextText);
             return this;
         }
 
@@ -712,6 +812,16 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
 
         public Builder setListener(IShowcaseListener listener) {
             showcaseView.addShowcaseListener(listener);
+            return this;
+        }
+
+        public Builder setCloseClickListener(ICloseListener closeListener) {
+            showcaseView.setCloseListener(closeListener);
+            return this;
+        }
+
+        public Builder setNextClickListener(INextListener nextListener) {
+            showcaseView.setNextListener(nextListener);
             return this;
         }
 
