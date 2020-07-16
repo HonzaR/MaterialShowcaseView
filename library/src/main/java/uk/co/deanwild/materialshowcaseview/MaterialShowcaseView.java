@@ -433,19 +433,19 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
     }
 
     private void setTitleText(CharSequence contentText) {
-        if (mTitleTextView != null && !contentText.equals("")) {
+        if (mTitleTextView != null && contentText.length() > 0) {
             mTitleTextView.setText(contentText);
         }
     }
 
     private void setContentText(CharSequence contentText) {
-        if (mContentTextView != null) {
+        if (mContentTextView != null && contentText.length() > 0) {
             mContentTextView.setText(contentText);
         }
     }
 
     private void setDismissText(CharSequence dismissText) {
-        if (mDismissButtonText != null) {
+        if (mDismissButtonText != null && dismissText.length() > 0) {
             mDismissButtonText.setText(dismissText);
 
             updateDismissButton();
@@ -453,13 +453,13 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
     }
 
     private void setCloseText(CharSequence closeText) {
-        if (mCloseTextView != null) {
+        if (mCloseTextView != null && closeText.length() > 0) {
             mCloseTextView.setText(closeText);
         }
     }
 
     private void setNextText(CharSequence nextText) {
-        if (mNextTextView != null) {
+        if (mNextTextView != null && nextText.length() > 0) {
             mNextTextView.setText(nextText);
         }
     }
@@ -700,18 +700,21 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
             return setDismissText(activity.getString(resId));
         }
 
-        public Builder setDismissText(CharSequence dismissText) {
-            showcaseView.setDismissText(dismissText);
+        public Builder setDismissText(CharSequence text) {
+            if (text != null && text.length() > 0)
+                showcaseView.setDismissText(text);
             return this;
         }
 
-        public Builder setCloseText(CharSequence closeText) {
-            showcaseView.setCloseText(closeText);
+        public Builder setCloseText(CharSequence text) {
+            if (text != null && text.length() > 0)
+                showcaseView.setCloseText(text);
             return this;
         }
 
-        public Builder setNextText(CharSequence nextText) {
-            showcaseView.setNextText(nextText);
+        public Builder setNextText(CharSequence text) {
+            if (text != null && text.length() > 0)
+                showcaseView.setNextText(text);
             return this;
         }
 
@@ -726,7 +729,8 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
          * Set the descriptive text shown on the ShowcaseView.
          */
         public Builder setContentText(CharSequence text) {
-            showcaseView.setContentText(text);
+            if (text != null && text.length() > 0)
+                showcaseView.setContentText(text);
             return this;
         }
 
@@ -741,7 +745,8 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
          * Set the descriptive text shown on the ShowcaseView as the title.
          */
         public Builder setTitleText(CharSequence text) {
-            showcaseView.setTitleText(text);
+            if (text != null && text.length() > 0)
+                showcaseView.setTitleText(text);
             return this;
         }
 
