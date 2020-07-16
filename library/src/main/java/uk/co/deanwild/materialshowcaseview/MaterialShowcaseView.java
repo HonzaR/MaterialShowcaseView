@@ -38,6 +38,7 @@ import uk.co.deanwild.materialshowcaseview.shape.RectangleShape;
 import uk.co.deanwild.materialshowcaseview.shape.Shape;
 import uk.co.deanwild.materialshowcaseview.target.Target;
 import uk.co.deanwild.materialshowcaseview.target.ViewTarget;
+import uk.co.deanwild.materialshowcaseview.utils.HelperUtils;
 
 
 /**
@@ -360,12 +361,7 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
 
         if (mCloseEnabled) {
             mCloseBox.setVisibility(VISIBLE);
-            mContentBox.setPadding (
-                mContentBox.getPaddingLeft(),
-                mContentBox.getPaddingTop(),
-                mContentBox.getPaddingRight(),
-                (int) getResources().getDimension(R.dimen.action_buttons_height)
-            );
+            fixViewsPadding(mContentBox, mCloseBox);
         } else {
             mCloseBox.setVisibility(GONE);
         }
@@ -378,15 +374,25 @@ public class MaterialShowcaseView extends FrameLayout implements View.OnTouchLis
 
         if (mNextEnabled) {
             mNextBox.setVisibility(VISIBLE);
-            mContentBox.setPadding (
-                    mContentBox.getPaddingLeft(),
-                    mContentBox.getPaddingTop(),
-                    mContentBox.getPaddingRight(),
-                    (int) getResources().getDimension(R.dimen.action_buttons_height)
-            );
+            fixViewsPadding(mContentBox, mNextBox);
         } else {
             mNextBox.setVisibility(GONE);
         }
+    }
+
+    private void fixViewsPadding(View content, View buttons) {
+
+        int bottomMargin = 0;
+        if (mRenderOverNav) {
+            bottomMargin = HelperUtils.getNavigationBarSize(getContext());
+            ((LayoutParams) buttons.getLayoutParams()).bottomMargin = bottomMargin;
+        }
+        content.setPadding (
+                content.getPaddingLeft(),
+                content.getPaddingTop(),
+                content.getPaddingRight(),
+                (int) getResources().getDimension(R.dimen.action_buttons_height) + bottomMargin
+        );
     }
 
     private void applyLayoutParams() {

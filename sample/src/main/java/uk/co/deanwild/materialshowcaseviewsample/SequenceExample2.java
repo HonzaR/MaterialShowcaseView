@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class SequenceExample2 extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sequence_example_2);
@@ -72,6 +74,7 @@ public class SequenceExample2 extends AppCompatActivity implements View.OnClickL
         config.setShapePadding(padding);
         config.setCloseEnabled(true);
         config.setNextEnabled(true);
+        config.setRenderOverNavigationBar(true);
         return config;
     }
 
